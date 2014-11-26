@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProductAdapter extends BaseAdapter {
 
@@ -48,6 +50,8 @@ public class ProductAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.cbSelect = (CheckBox) convertView.findViewById(R.id.cbSelect);
 			holder.tvContent = (TextView) convertView.findViewById(R.id.tvContent);
+			holder.tvItemID = (TextView) convertView.findViewById(R.id.tvItemID);  
+	        holder.btClick = (Button) convertView.findViewById(R.id.btClick);  
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -55,7 +59,9 @@ public class ProductAdapter extends BaseAdapter {
 
 		final Product itemInfo = list.get(position);
 		holder.tvContent.setText(itemInfo.getContent());
-
+		holder.tvItemID.setText(itemInfo.getId() + "");
+		
+		
 		holder.cbSelect.setChecked(selected.get(position));
 		holder.cbSelect.setOnClickListener(new OnClickListener() {
 
@@ -80,6 +86,15 @@ public class ProductAdapter extends BaseAdapter {
 			}
 		});
 
+		 holder.btClick.setOnClickListener(new OnClickListener() {  
+			  
+	            @Override  
+	            public void onClick(View v) {  
+	                String value = String.valueOf(position) + "|" + itemInfo.getId() + "|" + itemInfo.getContent();  
+	                Toast.makeText(context, value, Toast.LENGTH_SHORT).show();  
+	            }  
+	        });  
+		
 		return convertView;
 	}
 
@@ -99,8 +114,10 @@ public class ProductAdapter extends BaseAdapter {
 	}
 	
 	public class ViewHolder {
-		public CheckBox cbSelect;
-		public TextView tvContent;
+		 public CheckBox cbSelect;  
+	     public TextView tvContent;  
+	     public TextView tvItemID;  
+	     public Button btClick; 
 	}
 	
 	public interface CheckAll {
