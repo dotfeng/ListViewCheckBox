@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ProductAdapter extends BaseAdapter {
@@ -52,19 +53,48 @@ public class ProductAdapter extends BaseAdapter {
 			holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
 			holder.tv_content = (TextView) convertView.findViewById(R.id.tv_content);
 			holder.tv_price = (TextView) convertView.findViewById(R.id.tv_price);  
+			holder.ll_quantity = (LinearLayout) convertView.findViewById(R.id.ll_quantity);  
+			holder.tv_quantity = (TextView) convertView.findViewById(R.id.tv_quantity);
+			holder.btn_edit = (Button) convertView.findViewById(R.id.btn_edit);
+			holder.ll_edit_quantity = (LinearLayout) convertView.findViewById(R.id.ll_edit_quantity);
 			holder.btn_decrease = (Button) convertView.findViewById(R.id.btn_decrease);
 			holder.btn_increase = (Button) convertView.findViewById(R.id.btn_increase);
 			holder.et_quantity = (EditText) convertView.findViewById(R.id.et_quantity);
+			holder.btn_done = (Button) convertView.findViewById(R.id.btn_done);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		final EditText et_quantity = holder.et_quantity;
+		final TextView tv_quantity = holder.tv_quantity;
+		final LinearLayout l_quantity = holder.ll_quantity;
+		final LinearLayout le_quantity = holder.ll_edit_quantity;
 
 		final Product product = list.get(position);
 		holder.tv_content.setText(product.getContent());
 		holder.tv_price.setText(product.getPrice() + "");
+		
+		
+		holder.btn_edit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				l_quantity.setVisibility(View.GONE);
+				le_quantity.setVisibility(View.VISIBLE);
+			}
+		});
+		holder.btn_done.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				l_quantity.setVisibility(View.VISIBLE);
+				le_quantity.setVisibility(View.GONE);
+				product.setQuantity(Integer.parseInt(et_quantity.getText().toString()));
+				tv_quantity.setText(et_quantity.getText().toString());
+				context.updateAmount();
+			}
+		});
+		
 		holder.et_quantity.setText(product.getQuantity() + "");
-//		holder.et_quantity.setKeyListener(null);
+		holder.tv_quantity.setText(product.getQuantity() + "");
 		holder.cb_select.setChecked(selected.get(position));
 		holder.cb_select.setOnClickListener(new OnClickListener() {
 
@@ -90,25 +120,19 @@ public class ProductAdapter extends BaseAdapter {
 			}
 		});
 
-		final EditText quantity = holder.et_quantity;
-		
 		holder.btn_decrease.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(!(TextUtils.isEmpty(quantity.getText().toString())
-						|| "1".equals(quantity.getText().toString()))) {			
-					quantity.setText(Integer.parseInt(quantity.getText().toString()) - 1 + "");
-					product.setQuantity(Integer.parseInt(quantity.getText().toString()));
-					context.updateAmount();
+				if(!(TextUtils.isEmpty(et_quantity.getText().toString())
+						|| "1".equals(et_quantity.getText().toString()))) {			
+					et_quantity.setText(Integer.parseInt(et_quantity.getText().toString()) - 1 + "");
 				}
 			}
 		});
 		holder.btn_increase.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				quantity.setText(Integer.parseInt(quantity.getText().toString()) + 1 + "");
-				product.setQuantity(Integer.parseInt(quantity.getText().toString()));
-				context.updateAmount();
+				et_quantity.setText(Integer.parseInt(et_quantity.getText().toString()) + 1 + "");
 			}
 		});
 		
@@ -134,8 +158,13 @@ public class ProductAdapter extends BaseAdapter {
 		CheckBox cb_select;
 		TextView tv_content;
 		TextView tv_price;
+		LinearLayout ll_quantity;
+		TextView tv_quantity;
+		Button btn_edit;
+		LinearLayout ll_edit_quantity;
 		EditText et_quantity;
 		Button btn_decrease;
 		Button btn_increase;
+		Button btn_done;
 	}
 }

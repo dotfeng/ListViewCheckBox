@@ -16,7 +16,7 @@
         android:focusable="false" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/tv_content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:text="content" />
@@ -33,15 +33,40 @@
         <TextView
             android:id="@+id/tv_price"
             android:textColor="@android:color/black"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="id" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:text="11" />
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="◥"
+            android:textSize="25sp" />
+     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_edit_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
         android:layout_alignParentRight="true"
         android:orientation="horizontal" >
 
@@ -59,8 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5px"
             android:gravity="center"
+            android:imeOptions="actionDone"
             android:inputType="number"
-            android:enabled="false"
+            android:singleLine="true"
             android:text="1"
             android:textSize="25sp" />
 
@@ -72,6 +98,16 @@
             android:gravity="center"
             android:text="+"
             android:textSize="25sp" />
+        
+        <Button
+            android:id="@+id/btn_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
+            android:gravity="center"
+            android:text="√"
+            android:textSize="25sp" />
+        
     </LinearLayout>
 
 </RelativeLayout>

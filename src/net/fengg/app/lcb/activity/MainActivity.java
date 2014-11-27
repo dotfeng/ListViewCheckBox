@@ -131,7 +131,7 @@ public class MainActivity extends Activity
 	
 	public void updateAmount() {
 		double amount = 0;
-		
+		tv_amount.setText("");
 		for (int i = 0; i < list.size(); i++) {
 			for(int j=0; j < list.get(i).getProducts().size(); j++) {
 				if(adapter.getPAdapter(i).getSelect().get(j)) {
@@ -141,7 +141,8 @@ public class MainActivity extends Activity
 			}
 		}
 		
-		tv_amount.setText(amount + "");
+		if(amount !=0 )
+			tv_amount.setText(amount + "");
 	}
 	
 }
