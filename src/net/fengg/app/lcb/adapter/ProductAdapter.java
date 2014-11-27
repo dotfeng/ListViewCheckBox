@@ -6,6 +6,7 @@ import java.util.List;
 import net.fengg.app.lcb.R;
 import net.fengg.app.lcb.activity.MainActivity;
 import net.fengg.app.lcb.model.Product;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ProductAdapter extends BaseAdapter {
 
@@ -23,14 +24,14 @@ public class ProductAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private List<Product> list;
 	StoreAdapter adapter;
-	int i;
+	int storePosition;
 	MainActivity context;
 
-	public ProductAdapter(MainActivity context, List<Product> list, StoreAdapter adapter, int i) {
+	public ProductAdapter(MainActivity context, List<Product> list, StoreAdapter adapter, int storePosition) {
 		this.inflater = LayoutInflater.from(context);
 		this.list = list;
 		this.adapter = adapter;
-		this.i = i;
+		this.storePosition = storePosition;
 		this.context = context;
 		for (int j = 0; j < list.size(); j++) {
 			getSelect().add(false);
@@ -48,22 +49,24 @@ public class ProductAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.product_item, null);
 
 			holder = new ViewHolder();
-			holder.cbSelect = (CheckBox) convertView.findViewById(R.id.cbSelect);
-			holder.tvContent = (TextView) convertView.findViewById(R.id.tvContent);
-			holder.tvItemID = (TextView) convertView.findViewById(R.id.tvItemID);  
-	        holder.btClick = (Button) convertView.findViewById(R.id.btClick);  
+			holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
+			holder.tv_content = (TextView) convertView.findViewById(R.id.tv_content);
+			holder.tv_price = (TextView) convertView.findViewById(R.id.tv_price);  
+			holder.btn_decrease = (Button) convertView.findViewById(R.id.btn_decrease);
+			holder.btn_increase = (Button) convertView.findViewById(R.id.btn_increase);
+			holder.et_quantity = (EditText) convertView.findViewById(R.id.et_quantity);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final Product itemInfo = list.get(position);
-		holder.tvContent.setText(itemInfo.getContent());
-		holder.tvItemID.setText(itemInfo.getId() + "");
-		
-		
-		holder.cbSelect.setChecked(selected.get(position));
-		holder.cbSelect.setOnClickListener(new OnClickListener() {
+		final Product product = list.get(position);
+		holder.tv_content.setText(product.getContent());
+		holder.tv_price.setText(product.getPrice() + "");
+		holder.et_quantity.setText(product.getQuantity() + "");
+//		holder.et_quantity.setKeyListener(null);
+		holder.cb_select.setChecked(selected.get(position));
+		holder.cb_select.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -71,9 +74,9 @@ public class ProductAdapter extends BaseAdapter {
 				selected.set(position, !selected.get(position));// 将CheckBox的选中状况记录下来
 				
 				if(selected.contains(false)) {
-					adapter.getSelect().set(i, false);
+					adapter.getSelect().set(storePosition, false);
 				}else {
-					adapter.getSelect().set(i, true);
+					adapter.getSelect().set(storePosition, true);
 				}
 				
 				if(adapter.getSelect().contains(false)) {
@@ -82,18 +85,32 @@ public class ProductAdapter extends BaseAdapter {
 					context.checkAll(true);
 				}
 				
+				context.updateAmount();
 				adapter.notifyDataSetChanged();
 			}
 		});
 
-		 holder.btClick.setOnClickListener(new OnClickListener() {  
-			  
-	            @Override  
-	            public void onClick(View v) {  
-	                String value = String.valueOf(position) + "|" + itemInfo.getId() + "|" + itemInfo.getContent();  
-	                Toast.makeText(context, value, Toast.LENGTH_SHORT).show();  
-	            }  
-	        });  
+		final EditText quantity = holder.et_quantity;
+		
+		holder.btn_decrease.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(!(TextUtils.isEmpty(quantity.getText().toString())
+						|| "1".equals(quantity.getText().toString()))) {			
+					quantity.setText(Integer.parseInt(quantity.getText().toString()) - 1 + "");
+					product.setQuantity(Integer.parseInt(quantity.getText().toString()));
+					context.updateAmount();
+				}
+			}
+		});
+		holder.btn_increase.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				quantity.setText(Integer.parseInt(quantity.getText().toString()) + 1 + "");
+				product.setQuantity(Integer.parseInt(quantity.getText().toString()));
+				context.updateAmount();
+			}
+		});
 		
 		return convertView;
 	}
@@ -114,13 +131,11 @@ public class ProductAdapter extends BaseAdapter {
 	}
 	
 	public class ViewHolder {
-		 public CheckBox cbSelect;  
-	     public TextView tvContent;  
-	     public TextView tvItemID;  
-	     public Button btClick; 
-	}
-	
-	public interface CheckAll {
-		public void checkAll(boolean checked);
+		CheckBox cb_select;
+		TextView tv_content;
+		TextView tv_price;
+		EditText et_quantity;
+		Button btn_decrease;
+		Button btn_increase;
 	}
 }

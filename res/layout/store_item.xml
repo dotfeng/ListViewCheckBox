@@ -13,13 +13,13 @@
         android:layout_marginRight="10dp"
         android:orientation="horizontal" >
     	<CheckBox
-        android:id="@+id/cbSelect"
+        android:id="@+id/cb_select"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="false" />
         <TextView
-            android:id="@+id/tvContent"
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@android:color/black"

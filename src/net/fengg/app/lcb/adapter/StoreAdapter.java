@@ -56,8 +56,8 @@ public class StoreAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.store_item, null);
 
 			holder = new ViewHolder();
-			holder.cbSelect = (CheckBox) convertView.findViewById(R.id.cbSelect);
-			holder.tvContent = (TextView) convertView.findViewById(R.id.tvContent);
+			holder.cb_select = (CheckBox) convertView.findViewById(R.id.cb_select);
+			holder.tv_content = (TextView) convertView.findViewById(R.id.tv_content);
 			holder.lv_product = (CustomListView) convertView.findViewById(R.id.lv_product);
 			
 			convertView.setTag(holder);
@@ -70,10 +70,10 @@ public class StoreAdapter extends BaseAdapter {
 		
 		final Store store = list.get(position);
 		
-		holder.tvContent.setText(store.getName());
+		holder.tv_content.setText(store.getName());
 
-		holder.cbSelect.setChecked(selected.get(position));
-		holder.cbSelect.setOnClickListener(new OnClickListener() {
+		holder.cb_select.setChecked(selected.get(position));
+		holder.cb_select.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -89,6 +89,7 @@ public class StoreAdapter extends BaseAdapter {
 				}else {
 					context.checkAll(true);
 				}
+				context.updateAmount();
 				
 				notifyDataSetChanged();
 			}
@@ -113,12 +114,8 @@ public class StoreAdapter extends BaseAdapter {
 	}
 	
 	public class ViewHolder {
-		public CheckBox cbSelect;
-		public TextView tvContent;
+		public CheckBox cb_select;
+		public TextView tv_content;
 		public CustomListView lv_product;
-	}
-	
-	public interface CheckAll {
-		public void checkAll(boolean checked);
 	}
 }

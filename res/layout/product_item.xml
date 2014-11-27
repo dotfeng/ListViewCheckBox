@@ -8,47 +8,70 @@
     android:paddingTop="4dp" >
 
     <CheckBox
-        android:id="@+id/cbSelect"
+        android:id="@+id/cb_select"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
         android:clickable="true"
         android:focusable="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/btClick"
-        android:layout_toRightOf="@+id/cbSelect"
+        android:layout_toRightOf="@+id/cb_select"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tvContent"
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:text="content" />
 
         <TextView
-            android:id="@+id/tvItemID"
+            android:id="@+id/tv_price"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="id" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btClick"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:clickable="true"
-        android:focusable="false"
-        android:text="click" />
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_decrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="-"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/et_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
+            android:gravity="center"
+            android:inputType="number"
+            android:enabled="false"
+            android:text="1"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btn_increase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
+            android:gravity="center"
+            android:text="+"
+            android:textSize="25sp" />
+    </LinearLayout>
 
 </RelativeLayout>
