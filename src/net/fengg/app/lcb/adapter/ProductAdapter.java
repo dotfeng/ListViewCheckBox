@@ -101,7 +101,7 @@ public class ProductAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				System.out.println("selected set position:" + position);
-				selected.set(position, !selected.get(position));// 将CheckBox的选中状况记录下来
+				selected.set(position, !selected.get(position));
 				
 				if(selected.contains(false)) {
 					adapter.getSelect().set(storePosition, false);

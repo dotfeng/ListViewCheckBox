@@ -49,7 +49,7 @@ public class MainActivity extends Activity
 		for (int i = 0; i < 5; i++) {
 			Store store = new Store();
 			store.setId(i);
-			store.setName("µêÆÌ" + i);
+			store.setName("åº—é“º" + i);
 			
 			List<Product> plist = new ArrayList<Product>();
 			
@@ -57,7 +57,7 @@ public class MainActivity extends Activity
 				Product info = new Product();
 				info.setId(j);
 				info.setPrice(j+1);
-				info.setContent("µêÆÌÄÚÉÌÆ·" + i+j);
+				info.setContent("åº—é“ºä¸­çš„å•†å“" + i+j);
 				info.setQuantity(1);
 				plist.add(info);
 			}

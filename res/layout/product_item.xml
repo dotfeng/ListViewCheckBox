@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="◥"
+            android:text="✎"
             android:textSize="25sp" />
      </LinearLayout>
     <LinearLayout

@@ -66,7 +66,7 @@ public class StoreAdapter extends BaseAdapter {
 		}
 
 		holder.lv_product.setAdapter(pAdapterList.get(position));
-//		Util.setListViewHeight(holder.lv_product);//可以设置listview高度，也可以自定义CustomListView
+//		Util.setListViewHeight(holder.lv_product);//璁剧疆listview楂樺害锛屾垨鑰呬娇鐢–ustomListView
 		
 		final Store store = list.get(position);
 		
@@ -78,7 +78,7 @@ public class StoreAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				System.out.println("selected set position:" + position);
-				selected.set(position, !selected.get(position));// 将CheckBox的选中状况记录下来
+				selected.set(position, !selected.get(position));
 				for(int i=0;i<pAdapterList.get(position).getSelect().size();i++) {
 					pAdapterList.get(position).getSelect().set(i, selected.get(position));
 					System.out.println("selected " + i + ":" + pAdapterList.get(position).getSelect().get(i));
