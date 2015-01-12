@@ -132,7 +132,11 @@ public class ProductAdapter extends BaseAdapter {
 		holder.btn_increase.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				et_quantity.setText(Integer.parseInt(et_quantity.getText().toString()) + 1 + "");
+				if(TextUtils.isEmpty(et_quantity.getText().toString())) {
+					et_quantity.setText("1");
+				} else {
+					et_quantity.setText(Integer.parseInt(et_quantity.getText().toString()) + 1 + "");
+				}
 			}
 		});
 		

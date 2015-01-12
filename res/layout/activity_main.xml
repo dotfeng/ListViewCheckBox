@@ -49,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="#00000000"
+        android:descendantFocusability="beforeDescendants"
         android:divider="#19000000"
         android:dividerHeight="4dp"
         android:fadingEdge="none"
